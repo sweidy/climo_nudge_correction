@@ -339,7 +339,6 @@ def apply_regional_mask(da, region_name, lat_coord, landfrac_da, lf_scale):
         
     return masked_da.squeeze()
 
-
 def compute_weighted_rmse(obs, model):
     """
     Computes horizontal area-weighted Root Mean Square Error (RMSE).
@@ -405,6 +404,16 @@ def compute_pattern_correlation(obs, model, varlist):
 
     return xr.Dataset(data_vars={v: ("lev", r_arr[:, jdx]) for jdx, v in enumerate(varlist)},
                       coords={"lev": levs})
+
+def convert_kgm2s_to_mmday(data):
+    # convert precipitation rate data in kg/m^2/s to mm/day
+
+    return data*86400
+
+def convert_m_to_gz(data):
+    # convert raw height to geopotential height
+
+    return data*9.81
 
 def calculate_bias_ds(case_str, merra_str, years, months, climo_set="monave",
                       regrid=False, sfc_var=False, toa_var=False, extrap=True):

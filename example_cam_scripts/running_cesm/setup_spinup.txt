@@ -1,0 +1,19 @@
+./create_newcase --case cases/cam_replay1 --compset FHIST_DARTC6 --res f19_f19_mg17 --run-unsupported
+# F2000_DARTC6 for climo
+
+cd cases/<>
+
+./xmlchange NTASKS=128
+./xmlchange --append --id CAM_CONFIG_OPTS --val " -nlev 26 "
+./case.setup
+
+cp user_nl_cam_spinup to case
+
+./xmlchange RUN_STARTDATE=1980-01-01
+./xmlchange STOP_OPTION=nyears
+./xmlchange STOP_N=30
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
+./xmlchange REST_N=10
+
+./case.build
+

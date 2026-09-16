@@ -1,0 +1,13 @@
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_REFDATE=2010-01-01
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
+./xmlchange RUN_REFCASE=<case>
+
+change Running_mean_use_climo_restart to .true.
+change Running_mean_nudge_Beg_Year=1980
+change Running_mean_switch_integrate to .true. 
+comment out ncdata='/n/home04/sweidman/holylfs06/CESM2_nomod_out/inputdata/atm/cam/inic/fv/cami_0000-01-01_1.9x2.5_L26_c070408.nc' so atmosphere restarts from cam.i file. 
+
+add check_finidat_year_consistency = .false. to user_nl_clm
+
+save h1 tendencies if desired.

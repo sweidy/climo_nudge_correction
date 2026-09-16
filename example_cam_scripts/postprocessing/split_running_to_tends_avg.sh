@@ -1,0 +1,1 @@
+../../../corrector_scripts/split_running_to_tends_avg.sh

@@ -1,0 +1,56 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+
+
+&running_mean_nl
+
+Running_mean_Model = .true.
+Target_Path = '/n/home04/sweidman/holylfs06/MERRA2_OG/MERRA2_f19/monave30/'
+Target_File_Template = 'MERRA2_rolled_%m%d_%s.nc'
+Running_mean_use_climo_restart=.true. ! set true for restarting a case. Specify the climo_infile if you want to specify a specific file that has the running mean. Otherwise, the model will look for a file 'running_mean_climo_YYYY-MM-DD-SSSSS.nc' where the date is the current model timestep. For CONTINUE_RUN=True, set this to true but do not set the climo_infile. 
+Running_mean_climo_infile='running_mean_climo_2010-01-01-00000.nc'
+Running_mean_win_opt=1 ! use 0 for a uniformly weighted seasonal window, 1 for a tapered window. Suggested to use 1 to avoid ringing from the seasonal filter. 
+Running_mean_switch_integrate=.true. ! use true to apply the integrated control, false to use the standard running mean similar to the CABCOR method. 
+Running_mean_integrate_coeff=1. ! coefficient for strength of integrated control, typically 1
+
+Running_mean_Ucoef=1. ! change to set the nudging timescale coefficient. With Running_mean_Times_Per_Day, sets tau as described in the paper. For tau=6 hours, use a coef=1, Running_mean_Times_Per_Day=4 (every 6 hours). 
+Running_mean_Vcoef=1.
+Running_mean_Qcoef=1.
+Running_mean_Tcoef=0.
+
+Running_mean_win_size=31 ! full width of the seasonal window
+Running_mean_nstep_max=2400 !50 yrs ! spinup time of running mean
+Running_mean_Model_Times_Per_Day=12 ! number of times the running mean is updated per day (4,8,12 all reasonable choices)
+Running_mean_Force_Opt=2 ! Target is midpoint of observational data between current and next time, to be most consistent with how tendency is applied. 
+
+Running_mean_nudge_Beg_Year = 1980
+Running_mean_nudge_Beg_Month = 1
+Running_mean_nudge_Beg_Day = 1
+
+Running_mean_Vwin_Hindex  =27. ! set vertical window of nudging (all but top level)
+Running_mean_Vwin_Hdelta  =0.001
+Running_mean_Vwin_Lindex  =2.
+Running_mean_Vwin_Ldelta  =0.001
+Running_mean_Vwin_Invert  =.false.
+ 
+Running_mean_Uprof = 2 ! Use 2 if using a vertical or horizontal window, otherwise 1
+Running_mean_Vprof = 2
+Running_mean_Qprof = 2
+Running_mean_Tprof = 0
+
+/
+
+&cam_inparm
+
+empty_htapes=.true.
+
+fincl1='U','V','T','Q','PS','PRECT','CLDLOW','CLDMED','CLDHGH','SHFLX','LHFLX','Z3','PSL'
+fincl2 = 'PS:I', 'U:I', 'V:I', 'T:I','Q:I'
+fincl3='Running_nudge_U', 'Running_nudge_V', 'Running_nudge_T', 'Running_nudge_Q'
+nhtfrq=0,0,-6
+mfilt =1,1,4
+
+bnd_topo='/n/holystore01/INTERNAL_REPOS/CLIMATE_MODELS/cesm_2_1/inputdata/atm/cam/topo/USGS-gtopo30_1.9x2.5_remap_c050602.nc'
+!ncdata='/n/home04/sweidman/holylfs06/CESM2_nomod_out/inputdata/atm/cam/inic/fv/cami_0000-01-01_1.9x2.5_L26_c070408.nc'
+use_gw_rdg_beta=.false.
+/ 

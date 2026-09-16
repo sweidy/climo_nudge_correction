@@ -1,5 +1,7 @@
 Included are sourcemod changes to CESM2.1.5 for running the climatological nudging with integrated control. Example scripts for running the model and setting the case parameters are also included.  
 
+You can also run the nudging and correction steps using a fork of the CAM repository with the Sourcemod changes below already incorporated: https://github.com/sweidy/CAM/releases/tag/climo_nudge_v1.0. Simply clone or checkout this tag, which should be ready to run out of the box. 
+
 Sourcemods:
 - bld/namelist_files: addition of namelist variables for the running_mean_nl category. Most namelist parameters are comparable to the nudging_nl parameters from the original CESM toolbox, with some added parameters for the integrated control and restarting functionality. 
 - cime_config: addition of compset used for the climatological SST nudging case referenced in the paper (F2000_DARTC6) used to test sensitivity to SST forcing during the tendency generation step. Not critical for using the climatological nudging.  
